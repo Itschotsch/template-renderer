@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impulskarte</title>
+</head>
+
+<body>
+    <div class="card">
+        <iframe src="Impulskarte.html">
+        </iframe>
+    </div>
+</body>
+
+</html>
+
+<style>
+    @font-face {
+        font-family: CardTitle;
+        src: url("resources/fonts/Blackwood\ Castle.ttf");
+        font-weight: bold;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .spacer {
+        flex: 1;
+    }
+
+    html,
+    body {
+        --unit: 0.5rem;
+        --card-cutoff-bleed: calc(var(--unit) * 3);
+        /* Spielkarten */
+        /* --card-width: calc(var(--unit) * 59);
+        --card-height: calc(var(--unit) * 91); */
+        --card-width: calc(var(--unit) * 70);
+        --card-height: calc(var(--unit) * 120);
+        --card-border-radius: calc(var(--unit) * 3);
+
+        --meta-background-image: url("resources/meta/Wood026_2K-JPG_Color.jpg");
+        --card-shadow-radius: calc(var(--unit) * 5);
+
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+
+        background: var(--meta-background-image);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+
+        width: var(--card-width);
+        height: var(--card-height);
+
+        border-radius: var(--card-border-radius);
+        overflow: hidden;
+        box-shadow: 0 0 var(--card-shadow-radius) rgba(0, 0, 0, 0.5);
+
+        color: white;
+    }
+
+    .card iframe {
+        width: calc(100% + 2 * var(--card-cutoff-bleed));
+        height: calc(100% + 2 * var(--card-cutoff-bleed));
+
+        margin: calc(-1 * var(--card-cutoff-bleed));
+
+        border: none;
+    }
+</style>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const cardTemplate = "Impulskarte.html";
+        const cardData = {
+            title: "Gewöhnlicher Feuerball",
+            chaosValue: 8,
+            type: "calor",
+            description: "Du schießt in Wurfweite einen kuchengroßen Feuerball, der mit wagengroßer Explosion auftrifft.",
+            preventions: ["agility", "umor"],
+            escalations: [
+                {
+                    condition: "+ < umor >",
+                    consequence: "Eine raumgroße Dampfwolke entsteht.",
+                },
+                {
+                    condition: "Δ ≥ 2",
+                    consequence: "Getroffene erleiden 1W4 Schaden.",
+                },
+                {
+                    condition: "Δ ≥ 8",
+                    consequence: "Der Bereich brennt noch eine halbe Stunde lang.",
+                },
+            ],
+        };
+
+        const iframe = document.querySelector(".card iframe");
+        const params = new URLSearchParams({
+            data: JSON.stringify(cardData),
+        }).toString();
+        iframe.src = `${cardTemplate}?${params}`;
+    });
+</script>

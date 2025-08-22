@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impulskarte</title>
+</head>
+
+<body>
+    <div class="card">
+        <div class="safearea">
+            <div class="border column">
+                <div class="row">
+                    <div class="column">
+                        <p id="chaosValue">1</p>
+                        <p id="type" class="">?</p>
+                    </div>
+                    <h1 id="title">Überlang, dieser Kartentitel</h1>
+                </div>
+                <div class="spacer"></div>
+                <div id="description">
+                    Die Beschreibung einer Karte kann wahrlich lang sein.
+                    Je ausführlicher sie ist,
+                    desto mehr Regeln werden abgedeckt.
+                </div>
+                <div id="preventions">
+                    <div class="prevention">?</div>
+                </div>
+                <div id="escalations">
+                    <table>
+                        <tr>
+                            <td>
+                                Kondition A
+                            </td>
+                            <td>
+                                Eine Konsequenz A.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kondition B
+                            </td>
+                            <td>
+                                Eine Konsequenz B.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kondition C
+                            </td>
+                            <td>
+                                Eine Konsequenz C.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    @font-face {
+        font-family: CardTitle;
+        src: url("resources/fonts/Blackwood Castle.ttf");
+        font-weight: bold;
+    }
+
+    @font-face {
+        font-family: CardText;
+        src: url("resources/fonts/LinLibertine_R.ttf");
+        font-weight: bold;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .spacer {
+        flex: 1;
+    }
+
+    html,
+    body {
+        --unit: 0.5rem;
+        --card-cutoff-bleed: calc(var(--unit) * 3);
+        --card-safearea-inside-border: calc(var(--unit) * 5);
+        --card-safearea-outside-border: calc(var(--unit) * 2);
+        --card-background-image: url("resources/artworks/0.png");
+        --card-text-font-family: CardText, serif;
+        --card-text-font-size: calc(var(--unit) * 2.75);
+        --card-title-font-family: CardTitle, serif;
+        --card-title-font-size: calc(var(--unit) * 6);
+
+        --card-shadow-radius: calc(var(--unit) * 5);
+
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+    }
+
+    .card {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+
+        padding: var(--card-cutoff-bleed);
+
+        box-shadow: 0 0 var(--card-shadow-radius) rgba(0, 0, 0, 0.5);
+
+        background: var(--card-background-image);
+        background-size: cover;
+        background-position: center top;
+
+        font-family: var(--card-text-font-family);
+        font-size: var(--card-text-font-size);
+        color: white;
+    }
+
+    .card .safearea {
+        display: flex;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+
+        padding: var(--card-safearea-outside-border);
+    }
+
+    .card .border {
+        padding: var(--card-safearea-inside-border);
+
+        border-image: url("resources/decoration/border.png") 60 / 60px / 0px stretch;
+    }
+
+    .card #chaosValue {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        aspect-ratio: 1;
+        margin: 0;
+        padding: 0;
+
+        font-family: var(--card-title-font-family);
+        font-size: var(--card-title-font-size);
+    }
+
+    .card #type {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        aspect-ratio: 1;
+        margin: 0;
+        padding: 0;
+
+        font-size: var(--card-title-font-size);
+        height: var(--card-title-font-size);
+
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .card #title {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+
+        margin: 0;
+        margin-left: 1rem;
+        padding: 0;
+
+        font-family: var(--card-title-font-family);
+        font-size: var(--card-title-font-size);
+    }
+
+    .card #description {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+
+        width: 100%;
+
+        text-align: center;
+        font-style: italic;
+    }
+
+    .card #preventions {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .card #preventions::before {
+        content: "vs.";
+        font-style: italic;
+    }
+
+    .card #preventions .prevention {
+        margin-left: 0.75rem;
+        font-size: 1.5em;
+    }
+
+    .card #escalations table {
+        border-spacing: 1rem;
+    }
+
+    .card #escalations th:first-child,
+    .card #escalations td:first-child {
+        /* Make sure the first column has enough space. */
+        width: 1%;
+        white-space: nowrap;
+    }
+
+    .card #escalations p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .calor,
+    .umor,
+    .sonus,
+    .tactus,
+    .lucis,
+    .motus,
+    .tempus,
+    .spiritus,
+    .resilience,
+    .willpower,
+    .agility,
+    .strength,
+    .dexterity,
+    .perception,
+    .wisdom,
+    .presence {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        margin: 0;
+        padding: 0;
+
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    span.calor,
+    span.umor,
+    span.sonus,
+    span.tactus,
+    span.lucis,
+    span.motus,
+    span.tempus,
+    span.spiritus,
+    span.resilience,
+    span.willpower,
+    span.agility,
+    span.strength,
+    span.dexterity,
+    span.perception,
+    span.wisdom,
+    span.presence {
+        vertical-align: inherit;
+        transform: translateY(-0.125em);
+    }
+
+    .calor {
+        background-image: url("resources/icons/calor.svg");
+    }
+
+    .umor {
+        background-image: url("resources/icons/umor.svg");
+    }
+
+    .sonus {
+        background-image: url("resources/icons/sonus.svg");
+    }
+
+    .tactus {
+        background-image: url("resources/icons/tactus.svg");
+    }
+
+    .lucis {
+        background-image: url("resources/icons/lucis.svg");
+    }
+
+    .motus {
+        background-image: url("resources/icons/motus.svg");
+    }
+
+    .tempus {
+        background-image: url("resources/icons/tempus.svg");
+    }
+
+    .spiritus {
+        background-image: url("resources/icons/spiritus.svg");
+    }
+
+    .resilience {
+        background-image: url("resources/icons/resilience.svg");
+    }
+
+    .willpower {
+        background-image: url("resources/icons/willpower.svg");
+    }
+
+    .agility {
+        background-image: url("resources/icons/agility.svg");
+    }
+
+    .strength {
+        background-image: url("resources/icons/strength.svg");
+    }
+
+    .dexterity {
+        background-image: url("resources/icons/dexterity.svg");
+    }
+
+    .perception {
+        background-image: url("resources/icons/perception.svg");
+    }
+
+    .wisdom {
+        background-image: url("resources/icons/wisdom.svg");
+    }
+
+    .presence {
+        background-image: url("resources/icons/presence.svg");
+    }
+</style>
+
+<script type="text/javascript">
+    function lambda(elementID, value, lambdaFunction, lambdaFunctionNull = null) {
+        var element = document.getElementById(elementID);
+        if (value && element !== null) {
+            lambdaFunction(element, value);
+        } else if (element !== null && lambdaFunctionNull !== null) {
+            lambdaFunctionNull(element);
+        }
+    }
+
+    function format(text) {
+        // Replace all <umor> or <umor/> or <umor /> or <umor></umor> with <span class="umor"></span>
+        const regex = /<\s*(calor|umor|sonus|tactus|lucis|motus|tempus|spiritus|resilience|willpower|agility|strength|dexterity|perception|wisdom|presence)(?:\s*\/)?\s*>(?:\s*?<\s*\/\s*\1\s*>)?/gi;
+        return text.replace(regex, '<span class="$1"></span>');
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const dataParam = params.get("data");
+        if (dataParam === null) {
+            return;
+        }
+        const cardData = JSON.parse(dataParam);
+
+        console.log(cardData);
+
+        lambda("title", cardData.title, function (parentElement, value) {
+            parentElement.innerHTML = value;
+        });
+        lambda("chaosValue", cardData.chaosValue, function (parentElement, value) {
+            parentElement.innerHTML = value;
+        });
+        lambda("description", cardData.description, function (parentElement, value) {
+            parentElement.innerHTML = value;
+        }, function (parentElement) {
+            // Remove the parent
+            parentElement.remove();
+        });
+
+        lambda("type", cardData.type, function (parentElement, value) {
+            parentElement.classList.add(value);
+            parentElement.innerHTML = "";
+        });
+        lambda("preventions", cardData.preventions, function (parentElement, value) {
+            // Clear all children
+            while (parentElement.firstChild) {
+                parentElement.removeChild(parentElement.firstChild);
+            }
+
+            for (var i = 0; i < value.length; i++) {
+                var childElement = document.createElement("div");
+                childElement.classList.add("prevention", value[i]);
+                parentElement.appendChild(childElement);
+            }
+        }, function (parentElement) {
+            // Remove the parent
+            parentElement.remove();
+        });
+        lambda("escalations", cardData.escalations, function (parentElement, value) {
+            // Clear all children
+            while (parentElement.firstChild) {
+                parentElement.removeChild(parentElement.firstChild);
+            }
+
+            // Make table
+            const tableElement = document.createElement("table");
+            parentElement.appendChild(tableElement);
+
+            for (var i = 0; i < value.length; i++) {
+                const rowElement = document.createElement("tr");
+                const conditionElement = document.createElement("td");
+                conditionElement.classList.add("condition");
+                conditionElement.innerHTML = format(value[i].condition);
+                rowElement.appendChild(conditionElement);
+                const consequenceElement = document.createElement("td");
+                consequenceElement.classList.add("consequence");
+                consequenceElement.innerHTML = format(value[i].consequence);
+                rowElement.appendChild(consequenceElement);
+                tableElement.appendChild(rowElement);
+            }
+        }, function (parentElement) {
+            // Remove the parent
+            parentElement.remove();
+        });
+    });
+</script>
